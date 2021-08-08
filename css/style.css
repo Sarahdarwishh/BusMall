@@ -1,0 +1,6 @@
+
+#main-section{
+    display:grid;
+    grid-template-columns: 5px 5px 5px ;
+   
+}
