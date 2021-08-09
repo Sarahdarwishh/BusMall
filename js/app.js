@@ -15,6 +15,7 @@ let firstImageElement = document.getElementById('firstImage');
 let secondImageElement = document.getElementById('secondImage');
 let thirdImageElement = document.getElementById('thirdImage');
 
+
 function BusMall(name, source) {
     this.name = name;
     this.source = source;
@@ -66,69 +67,115 @@ function render() {
         thirdImageIndex = generateRandomIndex();
 
     }
-    // console.log(firstImageIndex);
-    // console.log(secondImageIndex);
-    // console.log(thirdImageIndex);
+
+
     firstImageElement.src = allBusMall[firstImageIndex].source;
     secondImageElement.src = allBusMall[secondImageIndex].source;
     thirdImageElement.src = allBusMall[thirdImageIndex].source;
+
 
     allBusMall[firstImageIndex].shown++;
     allBusMall[secondImageIndex].shown++;
     allBusMall[thirdImageIndex].shown++;
 
-
-
-
 }
-
 render();
 
+
+
+let images = document.getElementById('images');
+
 images.addEventListener('click', handleclick);
-let shown =0;
+
 function handleclick(event) {
-    if (userAttemptCounter < maxAttempts) {
-       shown ++;
-       shownArr.push(shown);
-
-            if (event.target.id === `firstImage`) {
-           allBusMall[firstImageIndex].votes++;
+    render();
+    if (userAttemptCounter < maxAttempts - 1) {
+        if (event.target.id === `firstImage`) {
+            allBusMall[firstImageIndex].votes++;
             userAttemptCounter++;
-        //    console.log( userAttemptCounter++);
-          
-        }
-            
-            else if (event.target.id === `secondImage`) {
-                allBusMall[secondImageIndex].votes++;
-                userAttemptCounter++;
-                
-                // console.log( userAttemptCounter++);
-            }
-            else if (event.target.id === `thirdImage`) {
-                allBusMall[thirdImageIndex].votes++;
-                userAttemptCounter++;
-               
-                // console.log( userAttemptCounter++);
-            }
-            else{
+            //    console.log( userAttemptCounter++);
 
-            }
+        }
+
+        else if (event.target.id === `secondImage`) {
+            allBusMall[secondImageIndex].votes++;
+            userAttemptCounter++;
+
+
+            // console.log( userAttemptCounter++);
+        }
+        else if (event.target.id === `thirdImage`) {
+            allBusMall[thirdImageIndex].votes++;
+            userAttemptCounter++;
+
+
+            // console.log( userAttemptCounter++);
         }
         render();
 
     }
-//  shownArr.push(shown);
-//  console.log(shownArr)
- handleclick();
-let result =document.getElementById(`list`)
+    else {
+        images.removeEventListener('click', handleclick);
 
- function list () {
+        for (let i = 0; i < allBusMall.length; i++) {
+
+            votesArr.push(allBusMall[i].votes);
+            shownArr.push(allBusMall[i].shown);
+
+        }
+
+        btn = document.createElement('input');
+        images.appendChild(btn);
+        btn.textContent = 'View Results';
+        btn.addEventListener('click', handleclick);
+        btn.setAttribute('type', 'submit');
+        btn.setAttribute('value', 'View Results');
+        btn.id = 'done';
+
+    }
+}
+
+let btn;
+
+
+function results() {
+
+
+    let list = document.getElementById('list');
+
     for (let i = 0; i < allBusMall.length; i++) {
-    let listItem = document.createElement('li');
-    result.appendChild(listItem);
-    listItem.textContent = `${allBusMall[i].name} had ${allBusMall[i].votes}  votes,  and was seen ${allBusMall[i].shown} times`;
+
+        let listItem = document.createElement('li');
+
+        list.appendChild(listItem);
+
+        listItem.textContent = `${allBusMall[i].name} had ${allBusMall[i].votes}  votes,  and was seen ${allBusMall[i].shown} times`;
 
 
- }
+    }
+    for (let i = 0; i < allBusMall.length; i++) {
 
- }
+        votesArr.push(allBusMall[i].votes);
+        shownArr.push(allBusMall[i].shown);
+
+    }
+
+}
+results();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
