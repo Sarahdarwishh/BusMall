@@ -5,12 +5,13 @@ let namesArr = [];
 let votesArr = [];
 let shownArr = [];
 let numbers = [];
-
 let maxAttempts = 25;
 let userAttemptCounter = 0;
+
 let firstImageIndex;
 let secondImageIndex;
 let thirdImageIndex;
+
 let firstImageElement = document.getElementById('firstImage');
 let secondImageElement = document.getElementById('secondImage');
 let thirdImageElement = document.getElementById('thirdImage');
@@ -21,54 +22,62 @@ function BusMall(name, source) {
     this.votes = 0;
     this.shown = 0
     allBusMall.push(this);
+    namesArr.push(this.name);
 
 
 }
 
-new BusMall('bag.jpg', 'images/bag.jpg');
-new BusMall('banana.jpg', 'images/banana.jpg');
-new BusMall('bathroom.jpg', 'images/bathroom.jpg');
-new BusMall('boots.jpg', 'images/boots.jpg');
-new BusMall('breakfast.jpg', 'images/breakfast.jpg');
-new BusMall('bubblegum.jpg', 'images/bubblegum.jpg');
-new BusMall('chair.jpg', 'images/chair.jpg');
-new BusMall('cthulhu.jpg', 'images/cthulhu.jpg');
-new BusMall('dog-duck.jpg', 'images/dog-duck.jpg');
-new BusMall('dragon.jpg', 'images/dragon.jpg');
-new BusMall('pen.jpg', 'images/pen.jpg');
-new BusMall('pet-sweep.jpg', 'images/pet-sweep.jpg');
-new BusMall('scissors.jpg', 'images/scissors.jpg');
-new BusMall('shark.jpg', 'images/shark.jpg');
-new BusMall('sweep.png', 'images/sweep.png');
-new BusMall('tauntaun.jpg', 'images/tauntaun.jpg');
-new BusMall('unicorn.jpg', 'images/unicorn.jpg');
-new BusMall('water-can.jpg', 'images/water-can.jpg');
-new BusMall('wine-glass.jpg', 'images/wine-glass.jpg');
+new BusMall('bag', 'images/bag.jpg');
+new BusMall('banana', 'images/banana.jpg');
+new BusMall('bathroom', 'images/bathroom.jpg');
+new BusMall('boots', 'images/boots.jpg');
+new BusMall('breakfast', 'images/breakfast.jpg');
+new BusMall('bubblegum', 'images/bubblegum.jpg');
+new BusMall('chair', 'images/chair.jpg');
+new BusMall('cthulhu', 'images/cthulhu.jpg');
+new BusMall('dog-duck', 'images/dog-duck.jpg');
+new BusMall('dragon', 'images/dragon.jpg');
+new BusMall('pen', 'images/pen.jpg');
+new BusMall('pet-sweep', 'images/pet-sweep.jpg');
+new BusMall('scissors', 'images/scissors.jpg');
+new BusMall('shark', 'images/shark.jpg');
+new BusMall('sweep', 'images/sweep.png');
+new BusMall('tauntaun', 'images/tauntaun.jpg');
+new BusMall('unicorn', 'images/unicorn.jpg');
+new BusMall('water-can', 'images/water-can.jpg');
+new BusMall('wine-glass', 'images/wine-glass.jpg');
 
 // console.log(allBusMall);
+// console.log(namesArr);
+
 
 
 
 function generateRandomIndex() {
     return Math.floor(Math.random() * allBusMall.length);
 }
-
+let oldImages;
 // console.log(generateRandomIndex())
-
 function render() {
+
+    oldImages =[firstImageIndex,secondImageIndex,thirdImageIndex]
+
     firstImageIndex = generateRandomIndex();
     secondImageIndex = generateRandomIndex();
     thirdImageIndex = generateRandomIndex();
 
-    while (firstImageIndex === secondImageIndex || secondImageIndex === thirdImageIndex || firstImageIndex === thirdImageIndex) {
+    while (firstImageIndex === secondImageIndex || secondImageIndex === thirdImageIndex || firstImageIndex === thirdImageIndex || oldImages.includes(firstImageIndex) || oldImages.includes(secondImageIndex) || oldImages.includes(thirdImageIndex)) {
         firstImageIndex = generateRandomIndex();
         secondImageIndex = generateRandomIndex();
         thirdImageIndex = generateRandomIndex();
 
+
     }
+
     // console.log(firstImageIndex);
     // console.log(secondImageIndex);
     // console.log(thirdImageIndex);
+
     firstImageElement.src = allBusMall[firstImageIndex].source;
     secondImageElement.src = allBusMall[secondImageIndex].source;
     thirdImageElement.src = allBusMall[thirdImageIndex].source;
@@ -76,59 +85,61 @@ function render() {
     allBusMall[firstImageIndex].shown++;
     allBusMall[secondImageIndex].shown++;
     allBusMall[thirdImageIndex].shown++;
+}
 
+render();
+
+
+
+let imagesSection = document.getElementById('images');
+imagesSection.addEventListener('click', handleclick);
+
+function handleclick(event) {
+    userAttemptCounter++;
+    if (userAttemptCounter <= maxAttempts) {
+        BusMall.shown++;
+        shownArr.push(BusMall.shown);
+
+        if (event.target.id === 'firstImage') {
+            allBusMall[firstImageIndex].votes++;
+        }
+
+        else if (event.target.id === 'secondImage') {
+            allBusMall[secondImageIndex].votes++;
+        }
+        else {
+            allBusMall[thirdImageIndex].votes++;
+        }
+
+        render();
+
+    } else {
+        imagesSection.removeEventListener('click', handleclick);
+        // votesArr.push(allBusMall[i].votes)
+
+    }
 
 
 
 }
 
-render();
 
-images.addEventListener('click', handleclick);
-let shown =0;
-function handleclick(event) {
-    if (userAttemptCounter < maxAttempts) {
-       shown ++;
-       shownArr.push(shown);
+let Button = document.getElementById(`Results`)
+let divResult = document.getElementById(`divResult`)
 
-            if (event.target.id === `firstImage`) {
-           allBusMall[firstImageIndex].votes++;
-            userAttemptCounter++;
-        //    console.log( userAttemptCounter++);
-          
-        }
-            
-            else if (event.target.id === `secondImage`) {
-                allBusMall[secondImageIndex].votes++;
-                userAttemptCounter++;
-                
-                // console.log( userAttemptCounter++);
-            }
-            else if (event.target.id === `thirdImage`) {
-                allBusMall[thirdImageIndex].votes++;
-                userAttemptCounter++;
-               
-                // console.log( userAttemptCounter++);
-            }
-            else{
+Button.addEventListener(`click`, displayResult)
+function displayResult() {
+    console.log(`hello`);
+    let ulElement = document.createElement("ul");
+    divResult.appendChild(ulElement);
 
-            }
-        }
-        render();
+    for (let i = 0; i < allBusMall.length; i++) {
+        let liElement = document.createElement("li");
+        ulElement.appendChild(liElement);
+        liElement.textContent = `${allBusMall[i].name} has ${allBusMall[i].votes}votes and watched ${allBusMall[i].shown}`
 
     }
-//  shownArr.push(shown);
-//  console.log(shownArr)
- handleclick();
-let result =document.getElementById(`list`)
 
- function list () {
-    for (let i = 0; i < allBusMall.length; i++) {
-    let listItem = document.createElement('li');
-    result.appendChild(listItem);
-    listItem.textContent = `${allBusMall[i].name} had ${allBusMall[i].votes}  votes,  and was seen ${allBusMall[i].shown} times`;
+}
 
 
- }
-
- }
