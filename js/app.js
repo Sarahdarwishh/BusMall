@@ -25,8 +25,6 @@ function BusMall(name, source) {
     // namesArr.push(this.name);
     // shownArr.push(this.shown);
     // votesArr.push(this.votes);
-
-
 }
 
 new BusMall('bag', 'images/bag.jpg');
@@ -52,13 +50,11 @@ new BusMall('wine-glass', 'images/wine-glass.jpg');
 // console.log(allBusMall);
 // console.log(namesArr);
 
-
-
-
 function generateRandomIndex() {
     return Math.floor(Math.random() * allBusMall.length);
 }
 let oldImages;
+
 function render() {
 
     oldImages = [firstImageIndex, secondImageIndex, thirdImageIndex]
@@ -73,7 +69,7 @@ function render() {
         thirdImageIndex = generateRandomIndex();
 
     }
-   
+
     firstImageElement.src = allBusMall[firstImageIndex].source;
     secondImageElement.src = allBusMall[secondImageIndex].source;
     thirdImageElement.src = allBusMall[thirdImageIndex].source;
@@ -82,6 +78,7 @@ function render() {
     allBusMall[firstImageIndex].shown++;
     allBusMall[secondImageIndex].shown++;
     allBusMall[thirdImageIndex].shown++;
+    
 }
 
 render();
@@ -92,10 +89,11 @@ let imagesSection = document.getElementById('images');
 imagesSection.addEventListener('click', handleclick);
 
 function handleclick(event) {
+
     userAttemptCounter++;
     if (userAttemptCounter <= maxAttempts) {
-       
-            if (event.target.id === 'firstImage') {
+
+        if (event.target.id === 'firstImage') {
             allBusMall[firstImageIndex].votes++;
         }
 
@@ -108,25 +106,26 @@ function handleclick(event) {
 
         render();
 
-    } else {
+    }
+
+    else {
 
 
         imagesSection.removeEventListener('click', handleclick);
-        
-        
+
+
 
     }
-    
-     
+
+   
+
 }
-
-
 
 
 let Button = document.getElementById(`Results`)
 let divResult = document.getElementById(`divResult`)
-
 Button.addEventListener(`click`, displayResult)
+
 function displayResult() {
     createChart();
     let ulElement = document.createElement("ul");
@@ -136,25 +135,21 @@ function displayResult() {
         let liElement = document.createElement("li");
         ulElement.appendChild(liElement);
         liElement.textContent = `${allBusMall[i].name} has ${allBusMall[i].votes}votes and watched ${allBusMall[i].shown}`
-        
+        settingItem();
     }
-   
+
     Button.removeEventListener(`click`, displayResult);
 }
 
-
-
-
-
 function createChart() {
-    for (let i= 0; i < allBusMall.length  ; i++) {
-    namesArr.push(allBusMall[i].name)
-    votesArr.push(allBusMall[i].votes)
-    shownArr.push(allBusMall[i].shown)
+    for (let i = 0; i < allBusMall.length; i++) {
+        namesArr.push(allBusMall[i].name)
+        votesArr.push(allBusMall[i].votes)
+        shownArr.push(allBusMall[i].shown)
 
-    console.log();
-    console.log(shownArr); 
-        
+        // console.log();
+        // console.log(shownArr); 
+
     }
 
     let ctx = document.getElementById('myChart').getContext('2d');
@@ -178,9 +173,9 @@ function createChart() {
                 label: 'NUMBER OF SHOWN',
                 hoverBackgroundColor: ' rgb(255, 255, 0)',
                 hoverBorderColor: '#DDDDDD',
-        
-            
-               
+
+
+
             }]
         },
         options: {
@@ -192,3 +187,23 @@ function createChart() {
         }
     });
 }
+
+function settingItem() {
+    let data = JSON.stringify(allBusMall);
+    localStorage.setItem(`BusMall`, data);
+}
+
+
+function gettingItem() {
+
+    let stringObj = localStorage.getItem('BusMall');
+    let normal = JSON.parse(stringObj);
+
+    if(normal){
+        allBusMall = normal
+    }
+   
+
+    render();
+}
+gettingItem();
