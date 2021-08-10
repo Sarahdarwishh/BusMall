@@ -25,9 +25,6 @@ function BusMall(name, source) {
     // namesArr.push(this.name);
     // shownArr.push(this.shown);
     // votesArr.push(this.votes);
-
-
-
 }
 
 new BusMall('bag', 'images/bag.jpg');
