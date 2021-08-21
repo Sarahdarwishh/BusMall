@@ -1,5 +1,5 @@
 'use strict';
-
+//sarah
 let allBusMall = [];
 let namesArr = [];
 let votesArr = [];
@@ -86,6 +86,7 @@ render();
 
 
 let imagesSection = document.getElementById('images');
+
 imagesSection.addEventListener('click', handleclick);
 
 function handleclick(event) {
@@ -124,6 +125,8 @@ function handleclick(event) {
 
 let Button = document.getElementById(`Results`)
 let divResult = document.getElementById(`divResult`)
+
+
 Button.addEventListener(`click`, displayResult)
 
 function displayResult() {
@@ -146,10 +149,6 @@ function createChart() {
         namesArr.push(allBusMall[i].name)
         votesArr.push(allBusMall[i].votes)
         shownArr.push(allBusMall[i].shown)
-
-        // console.log();
-        // console.log(shownArr); 
-
     }
 
     let ctx = document.getElementById('myChart').getContext('2d');
@@ -188,6 +187,10 @@ function createChart() {
     });
 }
 
+
+
+
+
 function settingItem() {
     let data = JSON.stringify(allBusMall);
     localStorage.setItem(`BusMall`, data);
@@ -199,7 +202,7 @@ function gettingItem() {
     let stringObj = localStorage.getItem('BusMall');
     let normal = JSON.parse(stringObj);
 
-    if(normal){
+    if(normal !== null ){
         allBusMall = normal
     }
    
