@@ -1,5 +1,104 @@
 'use strict';
-//sarah
+
+// let imgArray = [`images/bag.jpg`, `images/banana.jpg`, `images/bathroom.jpg`, `images/boots.jpg`, `images/breakfast.jpg`, `images/bubblegum.jpg`, `images/chair.jpg`, `images/cthulhu.jpg`, `images/dog-duck.jpg`, `images/dragon.jpg`, `images/pen.jpg `, `images/pet-sweep.jpg`, `images/scissors.jpg`, `images/shark.jpg`, `images/sweep.png`, `images/tauntaun.jpg`, `images/unicorn.jpg`, `images/water-can.jpg`, `images/wine-glass.jpg`]
+
+
+// let imagesSection = document.getElementById('images');
+
+// let firstImageElement = document.getElementById('firstImage');
+// let secondImageElement = document.getElementById('secondImage');
+// let thirdImageElement = document.getElementById('thirdImage');
+
+// let Button = document.getElementById(`Results`);
+// let divResult = document.getElementById(`divResult`);
+
+// let maxAttempts = 25;
+// let userAttemptCounter = 0;
+
+// //constractor and property:
+
+// function product(imgName, imgSrc) {
+//     this.imgName = imgName;
+//     this.imgSrc = imgSrc;
+//     this.timeShownImg = 0;
+//     this.timeClick = 0;
+//     allBusMall.push(this);
+
+// }
+
+// let allBusMall = [];
+
+// console.log(allBusMall)
+// for (let i = 0; i < imgArray.length; i++) {
+//     //[0] عشان بدنا القسم الاول بسسسس
+//     new product(imgArray[i].split(`.`)[0], imgArray[i]);
+// }
+
+
+// function random() {
+//     return Math.floor(Math.random() * imgArray.length);
+// }
+
+// let firstImageIndex;
+// let secondImageIndex;
+// let thirdImageIndex;
+// function render() {
+
+//     firstImageIndex = random();
+//     secondImageIndex = random();
+//     thirdImageIndex = random();
+
+//     while (firstImageIndex === secondImageIndex || secondImageIndex === thirdImageIndex || firstImageIndex === thirdImageIndex) {
+//         firstImageIndex = random();
+//         secondImageIndex = random();
+//         thirdImageIndex = random();
+
+//     }
+
+//     firstImageElement.src = allBusMall[firstImageIndex].imgSrc;
+//     secondImageElement.src = allBusMall[secondImageIndex].imgSrc;
+//     thirdImageElement.src = allBusMall[thirdImageIndex].imgSrc;
+
+//     allBusMall[firstImageIndex].timeShownImg++;
+//     allBusMall[secondImageIndex].timeShownImg++;
+//     allBusMall[thirdImageIndex].timeShownImg++;
+
+
+
+
+// }
+
+// render();
+
+
+// images.addEventListener(`click`, change);
+// function change(event) {
+
+//     userAttemptCounter++;
+//     if (userAttemptCounter <= maxAttempts) {
+
+//         if (event.target.id === 'firstImage') {
+//             allBusMall[firstImageIndex].votes++;
+//         }
+
+//         else if (event.target.id === 'secondImage') {
+//             allBusMall[secondImageIndex].votes++;
+//         }
+//         else {
+//             allBusMall[thirdImageIndex].votes++;
+//         }
+//         render();
+//     }
+
+//     else {
+//         imagesSection.removeEventListener('click', change);
+
+//     }
+
+// }
+
+
+
 let allBusMall = [];
 let namesArr = [];
 let votesArr = [];
@@ -49,14 +148,14 @@ new BusMall('wine-glass', 'images/wine-glass.jpg');
 
 // console.log(allBusMall);
 // console.log(namesArr);
-
+//فانكشن عشان يعطينا رقم راندوم بين كل الارقام 
 function generateRandomIndex() {
     return Math.floor(Math.random() * allBusMall.length);
 }
 let oldImages;
 
 function render() {
-
+//عشان ما يتكرر بالجولة التانية 
     oldImages = [firstImageIndex, secondImageIndex, thirdImageIndex]
 
     // firstImageIndex = generateRandomIndex();
@@ -78,7 +177,7 @@ function render() {
     allBusMall[firstImageIndex].shown++;
     allBusMall[secondImageIndex].shown++;
     allBusMall[thirdImageIndex].shown++;
-    
+
 }
 
 render();
@@ -118,7 +217,7 @@ function handleclick(event) {
 
     }
 
-   
+
 
 }
 
@@ -205,7 +304,7 @@ function gettingItem() {
     if(normal !== null ){
         allBusMall = normal
     }
-   
+
 
     render();
 }
